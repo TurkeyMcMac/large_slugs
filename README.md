@@ -87,9 +87,9 @@ settingtypes.txt but define your own slugs. To see how to do this, look in
 slugs.lua. In order to make your slugs spawn in the world, I would recommend
 registering them as decorations, as is done in mapgen.lua.
 
-The optional dependency on the ethereal mod is just to fix a bug. It seems that
-large\_slugs must load after ethereal for slugs to spawn properly, but I'm not
-sure why.
+The optional dependency on the mod "ethereal" is just to fix a bug. It seems
+that large\_slugs must load after ethereal in order for slugs to spawn properly.
+I'm not sure why.
 
 
 ## Licenses
