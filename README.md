@@ -1,7 +1,7 @@
 # large\_slugs
 
 This is a mod for [Minetest][1] that adds large slugs of several species,
-implemented as different nodes. They very slowly wander around, sticky to
+implemented as different nodes. They very slowly wander around, sticking to
 surfaces, and asexually reproduce up to an approximate density. This behavior
 can be tweaked or disabled if it becomes detrimental to performance.
 
