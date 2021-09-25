@@ -1,18 +1,3 @@
-print("MAPGEN")
-
-local function noise_params(ratio, seed)
-	return {
-		offset = 0,
-		scale = ratio,
-		spread = {x = 32, y = 32, z = 32},
-		seed = seed,
-		octaves = 1,
-		persistence = 1,
-		lacunarity = 1,
-		flags = "absvalue",
-	}
-end
-
 minetest.register_decoration({
 	name = "large_slugs:grass_slug",
 	deco_type = "simple",
