@@ -1,0 +1,14 @@
+# Whether to simulate slug movement and reproduction using periodic updates, taking up a bit of CPU time.
+large_slugs_do_behavior (Do slug behavior) bool true
+
+# The interval in seconds at which to update some slugs if behavior is enabled.
+large_slugs_update_interval (Slug update interval) float 5 0 30000
+
+# The chance that a slug is updated in a given update is one over this value.
+large_slugs_update_chance (Slug update chance) int 5 1 30000
+
+# The chance that an updating slug tries to gives birth instead of moving is one over this value.
+large_slugs_birth_chance (Slug birth chance) int 5 1 30000
+
+# In order to give birth, a slug must not find any slugs of the same species within this number of nodes in any direction around it.
+large_slugs_birth_space (Slug birth space) int 11 0 100
