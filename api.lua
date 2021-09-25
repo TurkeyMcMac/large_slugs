@@ -1,3 +1,5 @@
+large_slugs = {}
+
 large_slugs.registered_slugs = {}
 
 function large_slugs.register_slug(name, def)
