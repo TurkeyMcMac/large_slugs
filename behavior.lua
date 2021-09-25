@@ -50,6 +50,11 @@ local function update_slug(pos, node)
 	local old_dir = minetest.wallmounted_to_dir(old_wallmount)
 	if not old_dir then return end
 
+	-- Check that the slug can move on its current surface:
+	set_add(check_pos, pos, old_dir)
+	local node_under = minetest.get_node(check_pos)
+	if not def.ground[node_under.name] then return end
+
 	-- Determine whether this is a move or a birth (births require an empty
 	-- area around the parent):
 	local move = math.random(BIRTH_CHANCE) < BIRTH_CHANCE or
