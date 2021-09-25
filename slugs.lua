@@ -17,8 +17,10 @@
    along with large_slugs. If not, see <https://www.gnu.org/licenses/>.
 ]]
 
+local S = minetest.get_translator("large_slugs")
+
 large_slugs.register_slug("large_slugs:grass_slug", {
-	description = "Grass Slug",
+	description = S("Grass Slug"),
 	texture = "large_slugs_slug.png^[multiply:#696533",
 	ground = {
 		["default:dirt"] = true,
@@ -31,7 +33,7 @@ minetest.override_item("large_slugs:grass_slug", {
 })
 
 large_slugs.register_slug("large_slugs:pine_slug", {
-	description = "Pine Slug",
+	description = S("Pine Slug"),
 	texture = "large_slugs_slug.png^[multiply:#444220",
 	ground = {
 		["default:dirt"] = true,
@@ -45,7 +47,7 @@ minetest.override_item("large_slugs:pine_slug", {
 })
 
 large_slugs.register_slug("large_slugs:rainforest_slug", {
-	description = "Rainforest Slug",
+	description = S("Rainforest Slug"),
 	texture = "large_slugs_slug.png^[multiply:#B5AC44",
 	ground = {
 		["default:dirt"] = true,
@@ -59,7 +61,7 @@ minetest.override_item("large_slugs:rainforest_slug", {
 })
 
 large_slugs.register_slug("large_slugs:cave_slug", {
-	description = "Cave Slug",
+	description = S("Cave Slug"),
 	texture = "large_slugs_slug.png^[multiply:#555343",
 	ground = {
 		["default:stone"] = true,
@@ -83,7 +85,7 @@ minetest.register_craft({
 })
 
 large_slugs.register_slug("large_slugs:iron_slug", {
-	description = "Iron Slug",
+	description = S("Iron Slug"),
 	texture = "large_slugs_slug.png^[multiply:#A0661E",
 	ground = {
 		["default:stone"] = true,
@@ -103,7 +105,7 @@ minetest.register_craft({
 })
 
 large_slugs.register_slug("large_slugs:mese_slug", {
-	description = "Mese Slug",
+	description = S("Mese Slug"),
 	texture = "large_slugs_slug.png^[multiply:#FFEB00",
 	ground = {
 		["default:stone"] = true,
