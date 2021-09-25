@@ -2,6 +2,8 @@
 
 ![The different slug species](screenshot.png)
 
+[![ContentDB](https://content.minetest.net/packages/jwmhjwmh/large_slugs/shields/title/)](https://content.minetest.net/packages/jwmhjwmh/large_slugs/)
+
 This is a mod for [Minetest][1] that adds large slugs of several species,
 implemented as different nodes. They very slowly wander around, sticking to
 surfaces, and asexually reproduce up to an approximate density. This behavior
