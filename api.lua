@@ -27,6 +27,7 @@ function large_slugs.register_slug(name, def)
 		drawtype = "signlike",
 		tiles = {def.texture},
 		inventory_image = def.texture,
+		wield_image = def.texture,
 		selection_box = {
 			type = "wallmounted",
 			wall_top = {-8/16, 8/16, -8/16, 8/16, 7/16, 8/16},
