@@ -16,30 +16,43 @@ to these different surfaces.
 The light brown grass slug spawns on regular grass on the surface. It can only
 move on grass and dirt.
 
+Grass slugs can be eaten for one food point.
+
 ### Pine Slug
 
 The dark brown pine slug spawns in pine forests. It can only move on dirt, pine
 trees trunks, and the ground covering of the pine forests.
+
+Pine slugs can be eaten for one food point.
 
 ### Rainforest Slug
 
 The yellow rainforest slug spawns in rainforests. It can only move on dirt,
 jungle tree trunks, and the ground covering of the rainforests.
 
+Rainforest slugs can be eaten for two food points.
+
 ### Cave Slug
 
 The gray cave slug spawn at level -32 and below on stone. It can only move on
 stone, cobblestone, and coal-bearing stone.
+
+Cave slugs can be eaten for two food points. Two cave slugs can be crafted into
+a lump of coal.
 
 ### Iron Slug
 
 The rust-colored iron slug spawns at level -128 and below on stone. It can only
 move on stone, cobblestone, and iron ore.
 
+Two iron slugs can be crafted into a lump of iron.
+
 ### Mese Slug
 
 The bright yellow mese slug spawns at level -512 and below on stone. It can only
 move on stone, cobblestone, and mese-bearing stone.
+
+Three mese slugs can be crafted into a mese crystal fragment.
 
 
 ## Performance

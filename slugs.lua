@@ -26,6 +26,10 @@ large_slugs.register_slug("large_slugs:grass_slug", {
 	},
 })
 
+minetest.override_item("large_slugs:grass_slug", {
+	on_use = minetest.item_eat(1),
+})
+
 large_slugs.register_slug("large_slugs:pine_slug", {
 	description = "Pine Slug",
 	texture = "large_slugs_slug.png^[multiply:#444220",
@@ -34,6 +38,10 @@ large_slugs.register_slug("large_slugs:pine_slug", {
 		["default:dirt_with_coniferous_litter"] = true,
 		["default:pine_tree"] = true,
 	},
+})
+
+minetest.override_item("large_slugs:pine_slug", {
+	on_use = minetest.item_eat(1),
 })
 
 large_slugs.register_slug("large_slugs:rainforest_slug", {
@@ -46,6 +54,10 @@ large_slugs.register_slug("large_slugs:rainforest_slug", {
 	},
 })
 
+minetest.override_item("large_slugs:rainforest_slug", {
+	on_use = minetest.item_eat(2),
+})
+
 large_slugs.register_slug("large_slugs:cave_slug", {
 	description = "Cave Slug",
 	texture = "large_slugs_slug.png^[multiply:#555343",
@@ -54,6 +66,19 @@ large_slugs.register_slug("large_slugs:cave_slug", {
 		["default:cobble"] = true,
 		["default:mossycobble"] = true,
 		["default:stone_with_coal"] = true,
+	},
+})
+
+minetest.override_item("large_slugs:cave_slug", {
+	on_use = minetest.item_eat(2),
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "default:coal_lump",
+	recipe = {
+		"large_slugs:cave_slug",
+		"large_slugs:cave_slug",
 	},
 })
 
@@ -68,6 +93,15 @@ large_slugs.register_slug("large_slugs:iron_slug", {
 	},
 })
 
+minetest.register_craft({
+	type = "shapeless",
+	output = "default:iron_lump",
+	recipe = {
+		"large_slugs:iron_slug",
+		"large_slugs:iron_slug",
+	},
+})
+
 large_slugs.register_slug("large_slugs:mese_slug", {
 	description = "Mese Slug",
 	texture = "large_slugs_slug.png^[multiply:#FFEB00",
@@ -76,5 +110,15 @@ large_slugs.register_slug("large_slugs:mese_slug", {
 		["default:cobble"] = true,
 		["default:mossycobble"] = true,
 		["default:stone_with_mese"] = true,
+	},
+})
+
+minetest.register_craft({
+	type = "shapeless",
+	output = "default:mese_crystal_fragment",
+	recipe = {
+		"large_slugs:mese_slug",
+		"large_slugs:mese_slug",
+		"large_slugs:mese_slug",
 	},
 })
