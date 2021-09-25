@@ -1,4 +1,4 @@
-# large_slugs
+# large\_slugs
 
 This is a mod for [Minetest][1] that adds large slugs of several species,
 implemented as different nodes. They very slowly wander around, sticky to
