@@ -61,6 +61,16 @@ one of its species in the area.
 way ABMs work.
 
 
+## Dependence on "default"
+
+large\_slugs depends on the mod "default" because it refers to materials from
+that mod. However, it would not be hard to adapt large\_slugs to a different
+environment. You could keep the files api.lua, behavior.lua, and
+settingtypes.txt but define your own slugs. To see how to do this, look in
+slugs.lua. In order to make your slugs spawn in the world, I would recommend
+registering them as decorations, as is done in mapgen.lua.
+
+
 ## Licenses
 
 ### Source code
