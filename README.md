@@ -6,8 +6,8 @@
 
 This is a mod for [Minetest][1] that adds large slugs of several species,
 implemented as different nodes. They very slowly wander around, sticking to
-surfaces, and asexually reproduce up to an approximate density. This behavior
-can be tweaked or disabled if it becomes detrimental to performance.
+surfaces, and asexually reproduce up to an approximate population density. This
+behavior can be tweaked or disabled if it becomes detrimental to performance.
 
 
 ## Species
@@ -87,7 +87,7 @@ settingtypes.txt but define your own slugs. To see how to do this, look in
 slugs.lua. In order to make your slugs spawn in the world, I would recommend
 registering them as decorations, as is done in mapgen.lua.
 
-The optional dependency on the ethereal mod is just to fix a bug. I think that
+The optional dependency on the ethereal mod is just to fix a bug. It seems that
 large\_slugs must load after ethereal for slugs to spawn properly, but I'm not
 sure why.
 
