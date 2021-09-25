@@ -66,16 +66,16 @@ have not observed a huge performance cost.
 
 Implemented as nodes, slugs are less expensive to simulate than regular
 entities. An ABM runs every 5 seconds\* to update active slugs. In a given
-update, one out of every 5 slugs\* is actually updated†. Only one out of every
-5 updated slugs\* tries to reproduce, while the rest just try to move.
+update, one out of every 5 slugs\* is actually updated\*\*. Only one out of
+every 5 updated slugs\* tries to reproduce, while the rest just try to move.
 Reproduction is more expensive than movement, since a birthing slug must check
 up to 11 nodes\* around it in every direction to determine that it is the only
 one of its species in the area.
 
 \* These are default values. They can be changed in the settings.
 
-† The lower this value is, the more likely slugs are to double-move, due to the
-way ABMs work.
+\*\* The lower this value is, the more likely slugs are to double-move, due to
+the way ABMs work.
 
 
 ## Dependence on "default"
