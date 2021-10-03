@@ -20,29 +20,29 @@ to these different surfaces.
 The light brown grass slug spawns on regular grass on the surface. It can only
 move on grass and dirt.
 
-Grass slugs can be eaten for one food point.
+Grass slugs can be cooked and eaten for two food points.
 
 ### Pine Slug
 
 The dark brown pine slug spawns in pine forests. It can only move on dirt, pine
 trees trunks, and the ground covering of the pine forests.
 
-Pine slugs can be eaten for one food point.
+Pine slugs can be cooked and eaten for two food points.
 
 ### Rainforest Slug
 
 The yellow rainforest slug spawns in rainforests. It can only move on dirt,
 jungle tree trunks, and the ground covering of the rainforests.
 
-Rainforest slugs can be eaten for two food points.
+Rainforest slugs can be cooked and eaten for three food points.
 
 ### Cave Slug
 
 The gray cave slug spawn at level -32 and below on stone. It can only move on
 stone, cobblestone, and coal-bearing stone.
 
-Cave slugs can be eaten for two food points. Two cave slugs can be crafted into
-a lump of coal.
+Cave slugs can be cooked and eaten for three food points. Two cave slugs can be
+crafted into a lump of coal.
 
 ### Iron Slug
 
