@@ -22,9 +22,15 @@ local UPDATE_INTERVAL =
 local UPDATE_CHANCE =
 	tonumber(minetest.settings:get("large_slugs_update_chance")) or 5
 local BIRTH_CHANCE =
-	tonumber(minetest.settings:get("large_slugs_birth_chance")) or 5
-local BIRTH_SPACE =
-	tonumber(minetest.settings:get("large_slugs_birth_space")) or 11
+	tonumber(minetest.settings:get("large_slugs_birth_chance")) or 6
+local DEATH_CHANCE =
+	tonumber(minetest.settings:get("large_slugs_death_chance")) or 6
+local UNDERPOPULATION =
+	tonumber(minetest.settings:get("large_slugs_underpopulation")) or 1
+local OVERPOPULATION =
+	tonumber(minetest.settings:get("large_slugs_overpopulation")) or 3
+local CHECK_RADIUS =
+	tonumber(minetest.settings:get("large_slugs_check_radius")) or 5
 
 -- With the given vectors, computes a = b + c.
 local function set_add(a, b, c)
@@ -56,10 +62,23 @@ local SHIFT = 32
 local ROTATE = 64
 local SHIFT_ROTATE = 96
 
--- Update a slug, randomly trying to either move it or have it give birth.
-local function update_slug(pos, node)
+-- Update a slug, having it randomly try to move, give birth, or die.
+local function update_slug(pos)
+	local node = minetest.get_node(pos)
 	local def = large_slugs.registered_slugs[node.name]
 	if not def then return end
+
+	local try_death = math.random(DEATH_CHANCE) == 1
+	local try_birth = math.random(BIRTH_CHANCE) == 1
+	local area_count = (try_death or try_birth) and
+		#minetest.find_nodes_in_area(
+			vector.subtract(pos, CHECK_RADIUS),
+			vector.add(pos, CHECK_RADIUS), node.name)
+
+	if try_death and area_count >= OVERPOPULATION then
+		minetest.remove_node(pos)
+		return
+	end
 
 	local old_wallmount = node.param2
 	local old_dir = minetest.wallmounted_to_dir(old_wallmount)
@@ -73,10 +92,8 @@ local function update_slug(pos, node)
 	local node_under = minetest.get_node(check_pos)
 	if not def.ground[node_under.name] then return end
 
-	-- Determine whether this is a move or a birth (births require an empty
-	-- area around the parent):
-	local move = math.random(BIRTH_CHANCE) < BIRTH_CHANCE or
-		minetest.find_node_near(pos, BIRTH_SPACE, node.name) ~= nil
+	-- Determine whether this action is a move or a birth:
+	local move = not try_birth or area_count > UNDERPOPULATION
 
 	-- Scan for options, looking in directions perpendicular to the current
 	-- wallmounted direction of the node.
@@ -125,11 +142,16 @@ local function update_slug(pos, node)
 	end
 end
 
+-- Maximum number of seconds a slug update can be delayed.
+local MAX_DELAY = math.max(0, math.floor(UPDATE_INTERVAL) - 1)
+
 minetest.register_abm({
-	label = "Slugs updating",
+	label = "Scheduling slug updates",
 	nodenames = "group:large_slug",
 	interval = UPDATE_INTERVAL,
 	chance = UPDATE_CHANCE,
 	catch_up = false,
-	action = update_slug,
+	action = function(pos)
+		minetest.after(math.random(0, MAX_DELAY), update_slug, pos)
+	end,
 })

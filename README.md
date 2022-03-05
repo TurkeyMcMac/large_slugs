@@ -6,7 +6,7 @@
 
 This is a mod for [Minetest][1] that adds large slugs of several species,
 implemented as different nodes. They very slowly wander around, sticking to
-surfaces, and asexually reproduce up to an approximate population density. This
+surfaces, dying and asexually reproducing to balance their population. This
 behavior can be tweaked or disabled if it becomes detrimental to performance.
 
 
@@ -65,17 +65,15 @@ Again, you can disable slug behavior entirely in the mod settings. However, I
 have not observed a huge performance cost.
 
 Implemented as nodes, slugs are less expensive to simulate than regular
-entities. An ABM runs every 5 seconds\* to update active slugs. In a given
-update, one out of every 5 slugs\* is actually updated\*\*. Only one out of
-every 5 updated slugs\* tries to reproduce, while the rest just try to move.
-Reproduction is more expensive than movement, since a birthing slug must check
-up to 11 nodes\* around it in every direction to determine that it is the only
-one of its species in the area.
+entities. An ABM runs every 5 seconds\* to update active slugs. The updates are
+spread around the interval. Each interval, one out of every 5 slugs\* is
+actually updated. Each slug may check a radius of 5\* nodes around them and act
+based on the nearby population of their species. One out of 6\* will choose to
+die if there is more than 1\* other slug nearby. Of those remaining, one out of
+6\* will try to reproduce if there are 0\* other slugs nearby. Those that
+neither die nor try to reproduce will try to move.
 
 \* These are default values. They can be changed in the settings.
-
-\*\* The lower this value is, the more likely slugs are to double-move, due to
-the way ABMs work.
 
 
 ## Mod dependencies
