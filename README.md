@@ -31,7 +31,7 @@ Pine slugs can be cooked and eaten for two food points.
 
 ### Rainforest Slug
 
-The yellowish brown rainforest slug spawns in rainforests. It can only move on
+The yellow-brown rainforest slug spawns in rainforests. It can only move on
 dirt, jungle tree trunks, and the ground covering of the rainforests.
 
 Rainforest slugs can be cooked and eaten for three food points.
