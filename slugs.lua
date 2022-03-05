@@ -31,7 +31,7 @@ local CAVE_SLUG_COLOR = "#555343"
 
 local IRON_SLUG_COLOR = "#A0661E"
 
-local MESE_SLUG_COLOR = "#FFEB00"
+local MESE_SLUG_COLOR = "#CFD200"
 
 -- Slugs
 
