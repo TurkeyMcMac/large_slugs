@@ -26,6 +26,7 @@ function large_slugs.register_slug(name, def)
 		description = def.description,
 		drawtype = "signlike",
 		tiles = {def.texture},
+		visual_scale = 0.5,
 		inventory_image = def.texture,
 		wield_image = def.texture,
 		selection_box = {
