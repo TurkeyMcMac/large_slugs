@@ -56,10 +56,6 @@ local SHIFT = 32
 local ROTATE = 64
 local SHIFT_ROTATE = 96
 
--- These are kept around to save a few allocations, probably negligible.
-local opts = {}
-local check_pos = {}
-
 -- Update a slug, randomly trying to either move it or have it give birth.
 local function update_slug(pos, node)
 	local def = large_slugs.registered_slugs[node.name]
@@ -68,6 +64,9 @@ local function update_slug(pos, node)
 	local old_wallmount = node.param2
 	local old_dir = minetest.wallmounted_to_dir(old_wallmount)
 	if not old_dir then return end
+
+	-- Used in multiple places.
+	local check_pos = vector.new(0, 0, 0)
 
 	-- Check that the slug can move on its current surface:
 	set_add(check_pos, pos, old_dir)
@@ -81,6 +80,7 @@ local function update_slug(pos, node)
 
 	-- Scan for options, looking in directions perpendicular to the current
 	-- wallmounted direction of the node.
+	local opts = {}
 	local n_opts = 0
 	local perp_wallmounts = WALLMOUNT_TO_PERP_WALLMOUNTS[old_wallmount]
 	for _, perp_wallmount in ipairs(perp_wallmounts) do
