@@ -31,8 +31,8 @@ Pine slugs can be cooked and eaten for two food points.
 
 ### Rainforest Slug
 
-The yellow rainforest slug spawns in rainforests. It can only move on dirt,
-jungle tree trunks, and the ground covering of the rainforests.
+The yellowish brown rainforest slug spawns in rainforests. It can only move on
+dirt, jungle tree trunks, and the ground covering of the rainforests.
 
 Rainforest slugs can be cooked and eaten for three food points.
 
@@ -53,8 +53,8 @@ Two iron slugs can be crafted into a lump of iron.
 
 ### Mese Slug
 
-The bright yellow mese slug spawns at level -512 and below on stone. It can only
-move on stone, cobblestone, mese, and mese-bearing stone.
+The yellow mese slug spawns at level -512 and below on stone. It can only move
+on stone, cobblestone, mese, and mese-bearing stone.
 
 Three mese slugs can be crafted into a mese crystal fragment.
 
