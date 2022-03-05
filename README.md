@@ -59,19 +59,15 @@ on stone, cobblestone, mese, and mese-bearing stone.
 Three mese slugs can be crafted into a mese crystal fragment.
 
 
-## Performance
+## Behavior
 
-Again, you can disable slug behavior entirely in the mod settings. However, I
-have not observed a huge performance cost.
-
-Implemented as nodes, slugs are less expensive to simulate than regular
-entities. An ABM runs every 5 seconds\* to update active slugs. The updates are
-spread around the interval. Each interval, one out of every 5 slugs\* is
-actually updated. Each slug may check a radius of 5\* nodes around them and act
-based on the nearby population of their species. One out of 6\* will choose to
-die if there is more than 1\* other slug nearby. Of those remaining, one out of
-6\* will try to reproduce if there are 0\* other slugs nearby. Those that
-neither die nor try to reproduce will try to move.
+If behavior is enabled, an ABM runs every 5 seconds\* to update active slugs.
+The updates are spread throughout the interval. Each interval, one out of every
+5 slugs\* is actually updated. Each slug may check a radius of 5 nodes\* around
+them and act based on the nearby population of their species. One out of 6\*
+will choose to die if there is more than 1 other slug\* nearby. Of those
+remaining, one out of 6\* will try to reproduce if there are 0 other slugs\*
+nearby. Those that neither die nor try to reproduce will try to move.
 
 \* These are default values. They can be changed in the settings.
 
