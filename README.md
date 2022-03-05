@@ -54,7 +54,7 @@ Two iron slugs can be crafted into a lump of iron.
 ### Mese Slug
 
 The bright yellow mese slug spawns at level -512 and below on stone. It can only
-move on stone, cobblestone, and mese-bearing stone.
+move on stone, cobblestone, mese, and mese-bearing stone.
 
 Three mese slugs can be crafted into a mese crystal fragment.
 

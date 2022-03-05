@@ -94,6 +94,7 @@ large_slugs.register_slug("large_slugs:mese_slug", {
 		["default:cobble"] = true,
 		["default:mossycobble"] = true,
 		["default:stone_with_mese"] = true,
+		["default:mese"] = true,
 	},
 })
 
