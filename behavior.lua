@@ -40,27 +40,26 @@ local function set_add(a, b, c)
 end
 
 -- A map of wallmounted directions to their perpendicular directions.
-local WALLMOUNT_TO_PERP_WALLMOUNTS = {}
-WALLMOUNT_TO_PERP_WALLMOUNTS[0] = {4, 2, 5, 3}
-WALLMOUNT_TO_PERP_WALLMOUNTS[2] = {4, 0, 5, 1}
-WALLMOUNT_TO_PERP_WALLMOUNTS[4] = {2, 0, 3, 1}
-WALLMOUNT_TO_PERP_WALLMOUNTS[1] = WALLMOUNT_TO_PERP_WALLMOUNTS[0]
-WALLMOUNT_TO_PERP_WALLMOUNTS[3] = WALLMOUNT_TO_PERP_WALLMOUNTS[2]
-WALLMOUNT_TO_PERP_WALLMOUNTS[5] = WALLMOUNT_TO_PERP_WALLMOUNTS[4]
+local WALLMOUNT_TO_PERPS = {}
+WALLMOUNT_TO_PERPS[0] = {4, 2, 5, 3}
+WALLMOUNT_TO_PERPS[2] = {4, 0, 5, 1}
+WALLMOUNT_TO_PERPS[4] = {2, 0, 3, 1}
+WALLMOUNT_TO_PERPS[1] = WALLMOUNT_TO_PERPS[0]
+WALLMOUNT_TO_PERPS[3] = WALLMOUNT_TO_PERPS[2]
+WALLMOUNT_TO_PERPS[5] = WALLMOUNT_TO_PERPS[4]
 
 -- A map of wallmounted directions to their opposites.
-local WALLMOUNT_TO_OPP_WALLMOUNT = {
-	[0] = 1, [1] = 0, [2] = 3, [3] = 2, [4] = 5, [5] = 4,
-}
+local WALLMOUNT_TO_OPP = {[0] = 1, 0, 3, 2, 5, 4}
 
--- The numbers added to movement added wallmounted values to identify the type
--- of movement:
--- 1. Shifting to an adjacent node without rotation.
--- 2. Rotating to attach to a different node around the same position.
--- 3. Rotating around the node to which the slug is attached.
-local SHIFT = 32
-local ROTATE = 64
-local SHIFT_ROTATE = 96
+-- All possible direction check orders from which to choose randomly.
+local CHECK_ORDERS = {
+	{1, 2, 3, 4}, {1, 2, 4, 3}, {1, 3, 2, 4}, {1, 3, 4, 2},
+	{1, 4, 2, 3}, {1, 4, 3, 2}, {2, 1, 3, 4}, {2, 1, 4, 3},
+	{2, 3, 1, 4}, {2, 3, 4, 1}, {2, 4, 1, 3}, {2, 4, 3, 1},
+	{3, 1, 2, 4}, {3, 1, 4, 2}, {3, 2, 1, 4}, {3, 2, 4, 1},
+	{3, 4, 1, 2}, {3, 4, 2, 1}, {4, 1, 2, 3}, {4, 1, 3, 2},
+	{4, 2, 1, 3}, {4, 2, 3, 1}, {4, 3, 1, 2}, {4, 3, 2, 1},
+}
 
 -- Update a slug, having it randomly try to move, give birth, or die.
 local function update_slug(pos)
@@ -95,50 +94,35 @@ local function update_slug(pos)
 	-- Determine whether this action is a move or a birth:
 	local move = not try_birth or area_count > UNDERPOPULATION
 
-	-- Scan for options, looking in directions perpendicular to the current
-	-- wallmounted direction of the node.
-	local opts = {}
-	local n_opts = 0
-	local perp_wallmounts = WALLMOUNT_TO_PERP_WALLMOUNTS[old_wallmount]
-	for _, perp_wallmount in ipairs(perp_wallmounts) do
-		set_add(check_pos,
-			pos, minetest.wallmounted_to_dir(perp_wallmount))
+	-- Decide how to move, checking directions in a random order:
+	local perp_wallmounts = WALLMOUNT_TO_PERPS[old_wallmount]
+	for _, i in ipairs(CHECK_ORDERS[math.random(#CHECK_ORDERS)]) do
+		local perp_wallmount = perp_wallmounts[i]
+		local perp_dir = minetest.wallmounted_to_dir(perp_wallmount)
+		set_add(check_pos, pos, perp_dir)
 		local check_node = minetest.get_node(check_pos)
 		if move and def.ground[check_node.name] then
-			n_opts = n_opts + 1
-			opts[n_opts] = perp_wallmount + ROTATE
+			-- Move to new face around the old slug position:
+			node.param2 = perp_wallmount
+			minetest.swap_node(pos, node)
+			break
 		elseif check_node.name == "air" then
 			set_add(check_pos, check_pos, old_dir)
 			check_node = minetest.get_node(check_pos)
 			if def.ground[check_node.name] then
-				n_opts = n_opts + 1
-				opts[n_opts] = perp_wallmount + SHIFT
+				-- Move to a new position on the flat surface:
+				if move then minetest.remove_node(pos) end
+				set_add(pos, pos, perp_dir)
+				minetest.set_node(pos, node)
+				break
 			elseif check_node.name == "air" then
-				n_opts = n_opts + 1
-				opts[n_opts] = perp_wallmount + SHIFT_ROTATE
+				-- Move to a new face of the ground node:
+				if move then minetest.remove_node(pos) end
+				node.param2 = WALLMOUNT_TO_OPP[perp_wallmount]
+				minetest.set_node(check_pos, node)
+				break
 			end
 		end
-	end
-
-	if n_opts < 1 then return end
-
-	-- Choose one of the options and move in the way it specifies.
-	local chosen = opts[math.random(n_opts)]
-	local new_wallmount = chosen % 8
-	local chosen_type = chosen - new_wallmount
-	if chosen_type == SHIFT then
-		if move then minetest.remove_node(pos) end
-		set_add(pos, pos, minetest.wallmounted_to_dir(new_wallmount))
-		minetest.set_node(pos, node)
-	elseif chosen_type == ROTATE then
-		node.param2 = new_wallmount
-		minetest.swap_node(pos, node)
-	else -- SHIFT_ROTATE
-		if move then minetest.remove_node(pos) end
-		set_add(pos, pos, minetest.wallmounted_to_dir(new_wallmount))
-		set_add(pos, pos, old_dir)
-		node.param2 = WALLMOUNT_TO_OPP_WALLMOUNT[new_wallmount]
-		minetest.set_node(pos, node)
 	end
 end
 
