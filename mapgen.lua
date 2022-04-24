@@ -20,7 +20,7 @@
 minetest.register_decoration({
 	name = "large_slugs:grass_slug",
 	deco_type = "simple",
-	place_on = {"default:dirt_with_grass"},
+	place_on = {"large_slugs:dirt_grass"},
 	fill_ratio = 0.005,
 	y_max = 200,
 	y_min = 0,
@@ -31,7 +31,7 @@ minetest.register_decoration({
 minetest.register_decoration({
 	name = "large_slugs:pine_slug",
 	deco_type = "simple",
-	place_on = {"default:dirt_with_coniferous_litter"},
+	place_on = {"large_slugs:dirt_pine"},
 	fill_ratio = 0.005,
 	y_max = 250,
 	y_min = 0,
@@ -42,7 +42,7 @@ minetest.register_decoration({
 minetest.register_decoration({
 	name = "large_slugs:rainforest_slug",
 	deco_type = "simple",
-	place_on = {"default:dirt_with_rainforest_litter"},
+	place_on = {"large_slugs:dirt_rainforest"},
 	fill_ratio = 0.01,
 	y_max = 200,
 	y_min = 0,
@@ -50,38 +50,44 @@ minetest.register_decoration({
 	param2 = 1,
 })
 
-minetest.register_decoration({
-	name = "large_slugs:cave_slug",
-	deco_type = "simple",
-	place_on = {"default:stone"},
-	fill_ratio = 0.01,
-	flags = "all_floors",
-	y_max = -32,
-	y_min = -31000,
-	decoration = "large_slugs:cave_slug",
-	param2 = 1,
-})
+if minetest.registered_nodes["large_slugs:stone_coal"] then
+	minetest.register_decoration({
+		name = "large_slugs:cave_slug",
+		deco_type = "simple",
+		place_on = {"large_slugs:stone"},
+		fill_ratio = 0.01,
+		flags = "all_floors",
+		y_max = -32,
+		y_min = -31000,
+		decoration = "large_slugs:cave_slug",
+		param2 = 1,
+	})
+end
 
-minetest.register_decoration({
-	name = "large_slugs:iron_slug",
-	deco_type = "simple",
-	place_on = {"default:stone"},
-	fill_ratio = 0.005,
-	flags = "all_floors",
-	y_max = -128,
-	y_min = -31000,
-	decoration = "large_slugs:iron_slug",
-	param2 = 1,
-})
+if minetest.registered_nodes["large_slugs:stone_iron"] then
+	minetest.register_decoration({
+		name = "large_slugs:iron_slug",
+		deco_type = "simple",
+		place_on = {"large_slugs:stone"},
+		fill_ratio = 0.005,
+		flags = "all_floors",
+		y_max = -128,
+		y_min = -31000,
+		decoration = "large_slugs:iron_slug",
+		param2 = 1,
+	})
+end
 
-minetest.register_decoration({
-	name = "large_slugs:mese_slug",
-	deco_type = "simple",
-	place_on = {"default:stone"},
-	fill_ratio = 0.001,
-	flags = "all_floors",
-	y_max = -512,
-	y_min = -31000,
-	decoration = "large_slugs:mese_slug",
-	param2 = 1,
-})
+if minetest.registered_nodes["large_slugs:stone_mese"] then
+	minetest.register_decoration({
+		name = "large_slugs:mese_slug",
+		deco_type = "simple",
+		place_on = {"large_slugs:stone"},
+		fill_ratio = 0.001,
+		flags = "all_floors",
+		y_max = -512,
+		y_min = -31000,
+		decoration = "large_slugs:mese_slug",
+		param2 = 1,
+	})
+end

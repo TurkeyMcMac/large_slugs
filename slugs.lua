@@ -39,8 +39,8 @@ large_slugs.register_slug("large_slugs:grass_slug", {
 	description = S("Grass Slug"),
 	texture = "large_slugs_slug.png^[multiply:" .. GRASS_SLUG_COLOR,
 	ground = {
-		["default:dirt"] = true,
-		["default:dirt_with_grass"] = true,
+		"large_slugs:dirt",
+		"large_slugs:dirt_grass",
 	},
 })
 
@@ -48,9 +48,9 @@ large_slugs.register_slug("large_slugs:pine_slug", {
 	description = S("Pine Slug"),
 	texture = "large_slugs_slug.png^[multiply:" .. PINE_SLUG_COLOR,
 	ground = {
-		["default:dirt"] = true,
-		["default:dirt_with_coniferous_litter"] = true,
-		["default:pine_tree"] = true,
+		"large_slugs:dirt",
+		"large_slugs:dirt_pine",
+		"large_slugs:tree_pine",
 	},
 })
 
@@ -58,9 +58,9 @@ large_slugs.register_slug("large_slugs:rainforest_slug", {
 	description = S("Rainforest Slug"),
 	texture = "large_slugs_slug.png^[multiply:" .. RAINFOREST_SLUG_COLOR,
 	ground = {
-		["default:dirt"] = true,
-		["default:dirt_with_rainforest_litter"] = true,
-		["default:jungletree"] = true,
+		"large_slugs:dirt",
+		"large_slugs:dirt_rainforest",
+		"large_slugs:tree_rainforest",
 	},
 })
 
@@ -68,10 +68,10 @@ large_slugs.register_slug("large_slugs:cave_slug", {
 	description = S("Cave Slug"),
 	texture = "large_slugs_slug.png^[multiply:" .. CAVE_SLUG_COLOR,
 	ground = {
-		["default:stone"] = true,
-		["default:cobble"] = true,
-		["default:mossycobble"] = true,
-		["default:stone_with_coal"] = true,
+		"large_slugs:stone",
+		"large_slugs:stone_coal",
+		"large_slugs:cobble",
+		"large_slugs:cobble_moss",
 	},
 })
 
@@ -79,10 +79,10 @@ large_slugs.register_slug("large_slugs:iron_slug", {
 	description = S("Iron Slug"),
 	texture = "large_slugs_slug.png^[multiply:" .. IRON_SLUG_COLOR,
 	ground = {
-		["default:stone"] = true,
-		["default:cobble"] = true,
-		["default:mossycobble"] = true,
-		["default:stone_with_iron"] = true,
+		"large_slugs:stone",
+		"large_slugs:stone_iron",
+		"large_slugs:cobble",
+		"large_slugs:cobble_moss",
 	},
 })
 
@@ -90,11 +90,11 @@ large_slugs.register_slug("large_slugs:mese_slug", {
 	description = S("Mese Slug"),
 	texture = "large_slugs_slug.png^[multiply:" .. MESE_SLUG_COLOR,
 	ground = {
-		["default:stone"] = true,
-		["default:cobble"] = true,
-		["default:mossycobble"] = true,
-		["default:stone_with_mese"] = true,
-		["default:mese"] = true,
+		"large_slugs:stone",
+		"large_slugs:stone_mese",
+		"large_slugs:mese",
+		"large_slugs:cobble",
+		"large_slugs:cobble_moss",
 	},
 })
 
@@ -162,7 +162,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "shapeless",
-	output = "default:coal_lump",
+	output = "large_slugs:piece_coal",
 	recipe = {
 		"large_slugs:cave_slug",
 		"large_slugs:cave_slug",
@@ -171,7 +171,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "shapeless",
-	output = "default:iron_lump",
+	output = "large_slugs:piece_iron",
 	recipe = {
 		"large_slugs:iron_slug",
 		"large_slugs:iron_slug",
@@ -180,7 +180,7 @@ minetest.register_craft({
 
 minetest.register_craft({
 	type = "shapeless",
-	output = "default:mese_crystal_fragment",
+	output = "large_slugs:piece_mese",
 	recipe = {
 		"large_slugs:mese_slug",
 		"large_slugs:mese_slug",
