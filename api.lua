@@ -32,11 +32,9 @@ function ground_set_mt:__index(key)
 	setmetatable(self, nil)
 
 	-- Convert ground list to set (resolving aliases etc.)
-	local i = #self
-	while i > 0 do
+	for i = #self, 1, -1 do
 		local nodename = self[i]
 		self[i] = nil
-		i = i - 1
 		local nodedef =
 			minetest.registered_nodes[nodename]
 		if nodedef then self[nodedef.name] = true end
