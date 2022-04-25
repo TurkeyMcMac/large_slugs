@@ -1,5 +1,5 @@
 --[[
-   Copyright (C) 2021  Jude Melton-Houghton
+   Copyright (C) 2022  Jude Melton-Houghton
 
    This file is part of large_slugs. It provides stuff for compatibility.
 
