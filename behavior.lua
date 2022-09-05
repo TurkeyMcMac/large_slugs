@@ -114,22 +114,22 @@ local function update_slug(pos)
 		local perp_wallmount = perp_wallmounts[i]
 		local perp_dir = minetest.wallmounted_to_dir(perp_wallmount)
 		set_add(check_pos, pos, perp_dir)
-		local check_node = minetest.get_node(check_pos)
-		if move and ground[check_node.name] then
+		local adj_node = minetest.get_node(check_pos)
+		if move and ground[adj_node.name] then
 			-- Move to new face around the old slug position:
 			node.param2 = perp_wallmount
 			minetest.swap_node(pos, node)
 			break
-		elseif check_node.name == "air" then
+		elseif adj_node.name == "air" then
 			set_add(check_pos, check_pos, old_dir)
-			check_node = minetest.get_node(check_pos)
-			if ground[check_node.name] then
+			local diag_node = minetest.get_node(check_pos)
+			if ground[diag_node.name] then
 				-- Move to a new position on the flat surface:
 				if move then minetest.remove_node(pos) end
 				set_add(pos, pos, perp_dir)
 				minetest.set_node(pos, node)
 				break
-			elseif check_node.name == "air" then
+			elseif diag_node.name == "air" then
 				-- Move to a new face of the ground node:
 				if move then minetest.remove_node(pos) end
 				node.param2 = WALLMOUNT_TO_OPP[perp_wallmount]
