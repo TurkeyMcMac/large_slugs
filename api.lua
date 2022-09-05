@@ -21,28 +21,6 @@ large_slugs = {}
 
 large_slugs.registered_slugs = {}
 
-local ground_set_mt = {}
-function ground_set_mt:__index(key)
-	-- Don't convert until registration of nodes and aliases finishes.
-	if minetest.get_current_modname() then
-		return nil
-	end
-
-	-- Do the conversion but once.
-	setmetatable(self, nil)
-
-	-- Convert ground list to set (resolving aliases etc.)
-	for i = #self, 1, -1 do
-		local nodename = self[i]
-		self[i] = nil
-		local nodedef =
-			minetest.registered_nodes[nodename]
-		if nodedef then self[nodedef.name] = true end
-	end
-
-	return self[key]
-end
-
 function large_slugs.register_slug(name, def)
 	minetest.register_node(name, {
 		description = def.description,
@@ -64,11 +42,5 @@ function large_slugs.register_slug(name, def)
 		walkable = false,
 		floodable = true,
 	})
-
-	def = table.copy(def)
-	-- Set the metatable to convert the ground list to a set at its first
-	-- use, after all nodes and aliases have been registered.
-	def.ground = setmetatable(def.ground or {}, ground_set_mt)
-
 	large_slugs.registered_slugs[name] = def
 end

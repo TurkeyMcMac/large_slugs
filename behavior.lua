@@ -32,6 +32,20 @@ local OVERPOPULATION =
 local CHECK_RADIUS =
 	tonumber(minetest.settings:get("large_slugs_check_radius")) or 5
 
+-- Keep the ground nodes as a set for each kind of slug.
+local slug_grounds = {}
+minetest.after(0, function()
+	-- Fill sets after all mods are finished loading.
+	for name, def in pairs(large_slugs.registered_slugs) do
+		local ground = {}
+		for _, nodename in ipairs(def.ground) do
+			local nodedef = minetest.registered_nodes[nodename]
+			if nodedef then ground[nodedef.name] = true end
+		end
+		slug_grounds[name] = ground
+	end
+end)
+
 -- With the given vectors, computes a = b + c.
 local function set_add(a, b, c)
 	a.x = b.x + c.x
@@ -64,8 +78,8 @@ local CHECK_ORDERS = {
 -- Update a slug, having it randomly try to move, give birth, or die.
 local function update_slug(pos)
 	local node = minetest.get_node(pos)
-	local def = large_slugs.registered_slugs[node.name]
-	if not def then return end
+	local ground = slug_grounds[node.name]
+	if not ground then return end
 
 	local try_death = math.random(DEATH_CHANCE) == 1
 	local try_birth = math.random(BIRTH_CHANCE) == 1
@@ -89,7 +103,7 @@ local function update_slug(pos)
 	-- Check that the slug can move on its current surface:
 	set_add(check_pos, pos, old_dir)
 	local node_under = minetest.get_node(check_pos)
-	if not def.ground[node_under.name] then return end
+	if not ground[node_under.name] then return end
 
 	-- Determine whether this action is a move or a birth:
 	local move = not try_birth or area_count > UNDERPOPULATION
@@ -101,7 +115,7 @@ local function update_slug(pos)
 		local perp_dir = minetest.wallmounted_to_dir(perp_wallmount)
 		set_add(check_pos, pos, perp_dir)
 		local check_node = minetest.get_node(check_pos)
-		if move and def.ground[check_node.name] then
+		if move and ground[check_node.name] then
 			-- Move to new face around the old slug position:
 			node.param2 = perp_wallmount
 			minetest.swap_node(pos, node)
@@ -109,7 +123,7 @@ local function update_slug(pos)
 		elseif check_node.name == "air" then
 			set_add(check_pos, check_pos, old_dir)
 			check_node = minetest.get_node(check_pos)
-			if def.ground[check_node.name] then
+			if ground[check_node.name] then
 				-- Move to a new position on the flat surface:
 				if move then minetest.remove_node(pos) end
 				set_add(pos, pos, perp_dir)
