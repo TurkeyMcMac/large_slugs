@@ -102,8 +102,7 @@ local function update_slug(pos)
 
 	-- Check that the slug can move on its current surface:
 	set_add(check_pos, pos, old_dir)
-	local node_under = minetest.get_node(check_pos)
-	if not ground[node_under.name] then return end
+	if not ground[minetest.get_node(check_pos).name] then return end
 
 	-- Determine whether this action is a move or a birth:
 	local move = not try_birth or area_count > UNDERPOPULATION
@@ -114,22 +113,22 @@ local function update_slug(pos)
 		local perp_wallmount = perp_wallmounts[i]
 		local perp_dir = minetest.wallmounted_to_dir(perp_wallmount)
 		set_add(check_pos, pos, perp_dir)
-		local adj_node = minetest.get_node(check_pos)
-		if move and ground[adj_node.name] then
+		local adj_nodename = minetest.get_node(check_pos).name
+		if move and ground[adj_nodename] then
 			-- Move to new face around the old slug position:
 			node.param2 = perp_wallmount
 			minetest.swap_node(pos, node)
 			break
-		elseif adj_node.name == "air" then
+		elseif adj_nodename == "air" then
 			set_add(check_pos, check_pos, old_dir)
-			local diag_node = minetest.get_node(check_pos)
-			if ground[diag_node.name] then
+			local diag_nodename = minetest.get_node(check_pos).name
+			if ground[diag_nodename] then
 				-- Move to a new position on the flat surface:
 				if move then minetest.remove_node(pos) end
 				set_add(pos, pos, perp_dir)
 				minetest.set_node(pos, node)
 				break
-			elseif diag_node.name == "air" then
+			elseif diag_nodename == "air" then
 				-- Move to a new face of the ground node:
 				if move then minetest.remove_node(pos) end
 				node.param2 = WALLMOUNT_TO_OPP[perp_wallmount]
