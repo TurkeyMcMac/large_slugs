@@ -40,6 +40,7 @@ function large_slugs.register_slug(name, def)
 		paramtype2 = "wallmounted",
 		groups = {large_slug = 1, dig_immediate = 3, attached_node = 1},
 		walkable = false,
+		buildable_to = true,
 		floodable = true,
 	})
 	large_slugs.registered_slugs[name] = def
